@@ -20,7 +20,7 @@ const app = express()
 // to make input as json
 app.use(express.json())
 app.use(cookieParser())
-app.use(cors({ origin: ["https://note-sphere-iota.vercel.app/"], credentials: true }))
+app.use(cors({ origin: ["https://note-sphere-iota.vercel.app"], credentials: true }))
 
 
 const PORT = process.env.PORT || 3000
