@@ -75,9 +75,10 @@ export const signin = async (req, res, next) => {
 export const signout = async (req, res, next) => {
   try {
     res.clearCookie("access_token", {
-  httpOnly: true,
-  secure: true,
-  sameSite: "none"})
+      httpOnly: true,
+      secure: true,
+      sameSite: "none"
+    })
 
     res.status(200).json({
       success: true,
@@ -108,7 +109,10 @@ export const googleAuth = async (req, res, next) => {
       const token = jwt.sign({ id: existingUser._id }, process.env.JWT_SECRET)
       const { password: pass, ...rest } = existingUser._doc
 
-      res.cookie("access_token", token, { httpOnly: true }).status(200).json({
+      res.cookie("access_token", token, {
+        httpOnly: true, secure: true,
+        sameSite: "None",
+      }).status(200).json({
         success: true,
         message: "Google Login Successful!",
         rest,
@@ -127,7 +131,10 @@ export const googleAuth = async (req, res, next) => {
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET)
       const { password: pass, ...rest } = newUser._doc
 
-      res.cookie("access_token", token, { httpOnly: true }).status(201).json({
+      res.cookie("access_token", token, {
+        httpOnly: true, secure: true,
+        sameSite: "None",
+      }).status(201).json({
         success: true,
         message: "Google User Created Successfully!",
         rest,
