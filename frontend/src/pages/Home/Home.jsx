@@ -9,6 +9,8 @@ import Navbar from "../../components/Navbar"
 import axios from "axios"
 import { toast } from "react-toastify"
 import EmptyCard from "../../components/EmptyCard/EmptyCard"
+import { BASE_URL } from "../../const/env.const"
+
 
 const Home = () => {
   const { currentUser, loading, errorDispatch } = useSelector(
@@ -42,7 +44,7 @@ const Home = () => {
   // get all notes
   const getAllNotes = async () => {
     try {
-      const res = await axios.get("http://localhost:3000/api/note/all", {
+      const res = await axios.get(`${BASE_URL}/api/note/all`, {
         withCredentials: true,
       })
 
@@ -69,7 +71,7 @@ const Home = () => {
 
     try {
       const res = await axios.delete(
-        "http://localhost:3000/api/note/delete/" + noteId,
+        `${BASE_URL}/api/note/delete/` + noteId,
         { withCredentials: true }
       )
 
@@ -87,7 +89,7 @@ const Home = () => {
 
   const onSearchNote = async (query) => {
     try {
-      const res = await axios.get("http://localhost:3000/api/note/search", {
+      const res = await axios.get(`${BASE_URL}/api/note/search`, {
         params: { query },
         withCredentials: true,
       })
@@ -115,7 +117,7 @@ const Home = () => {
 
     try {
       const res = await axios.put(
-        "http://localhost:3000/api/note/update-note-pinned/" + noteId,
+        `${BASE_URL}/api/note/update-note-pinned/` + noteId,
         { isPinned: !noteData.isPinned },
         { withCredentials: true }
       )
@@ -181,7 +183,7 @@ const Home = () => {
       </div>
 
       <button
-        className="w-16 h-16 flex items-center justify-center rounded-2xl bg-[#2B85FF] hover:bg-blue-600 absolute right-10 bottom-10"
+        className="w-16 h-16 flex items-center text-white justify-center rounded-2xl bg-[#2B85FF] hover:bg-blue-600 absolute right-10 bottom-10"
         onClick={() => {
           setOpenAddEditModal({ isShown: true, type: "add", data: null })
         }}

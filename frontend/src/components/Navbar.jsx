@@ -10,6 +10,7 @@ import {
   signoutStart,
 } from "../redux/user/userSlice"
 import axios from "axios"
+import { BASE_URL } from "../const/env.const"
 
 const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
   const [searchQuery, setSearchQuery] = useState("")
@@ -32,7 +33,7 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
     try {
       dispatch(signoutStart())
 
-      const res = await axios.get("http://localhost:3000/api/auth/signout", {
+      const res = await axios.get(`${BASE_URL}/api/auth/signout`, {
         withCredentials: true,
       })
 
@@ -42,7 +43,9 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
         return
       }
 
-      toast.success(res.data.message)
+      toast.success(`Ooh no you loged out!`)
+      // console.log("Logged out successfully", res.data);
+      
       dispatch(signInSuccess())
       navigate("/login")
     } catch (error) {
@@ -55,8 +58,8 @@ const Navbar = ({ userInfo, onSearchNote, handleClearSearch }) => {
     <div className="bg-white flex items-center justify-between px-6 py-2 drop-shadow">
       <Link to={"/"}>
         <h2 className="text-xl font-medium text-black py-2">
-          <span className="text-slate-500">Good</span>
-          <span className="text-slate-900">Notes</span>
+          <span className="text-slate-500">Note</span>
+          <span className="text-slate-900">Sphere</span>
         </h2>
       </Link>
 

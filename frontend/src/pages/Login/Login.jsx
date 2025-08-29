@@ -12,6 +12,9 @@ import {
 import axios from "axios"
 import { toast } from "react-toastify"
 
+import { BASE_URL } from "../../const/env.const"
+
+
 const Login = () => {
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -41,7 +44,7 @@ const Login = () => {
       dispatch(signInStart())
 
       const res = await axios.post(
-        "http://localhost:3000/api/auth/signin",
+        `${BASE_URL}/api/auth/signin`,
         { email, password },
         { withCredentials: true },
       )
@@ -53,7 +56,7 @@ const Login = () => {
       }
       console.log('loged in successfully', res.data);
       
-      toast.success(res.data.message)
+      toast.success(`Ooh yes.. you loged in ${res.data.rest.username}!`)
       dispatch(signInSuccess(res.data))
       navigate("/")
     } catch (error) {
@@ -65,7 +68,7 @@ const Login = () => {
   }
 
   return (
-    <div className="flex items-center justify-center mt-28">
+    <div className="flex items-center justify-center mt-28 bg-">
       <div className="w-96 border rounded bg-white px-7 py-10">
         <form onSubmit={handleLogin}>
           <h4 className="text-2xl mb-7">Login</h4>

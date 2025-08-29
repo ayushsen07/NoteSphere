@@ -4,11 +4,14 @@ import TagInput from "../../components/Input/TagInput "
 import axios from "axios"
 import { toast } from "react-toastify"
 
+import { BASE_URL } from "../../const/env.const"
+
 const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
   const [title, setTitle] = useState(noteData?.title || "")
   const [content, setContent] = useState(noteData?.content || "")
   const [tags, setTags] = useState(noteData?.tags || [])
   const [error, setError] = useState(null)
+
 
   //   Edit Note
   const editNote = async () => {
@@ -17,7 +20,7 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
 
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/note/edit/" + noteId,
+        `${BASE_URL}/api/note/edit/` + noteId,
         { title, content, tags },
         { withCredentials: true }
       )
@@ -45,7 +48,7 @@ const AddEditNotes = ({ onClose, noteData, type, getAllNotes }) => {
   const addNewNote = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:3000/api/note/add",
+        `${BASE_URL}/api/note/add`,
         { title, content, tags },
         { withCredentials: true }
       )

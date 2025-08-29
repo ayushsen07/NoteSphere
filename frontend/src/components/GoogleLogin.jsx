@@ -38,7 +38,7 @@ const GoogleLoginButton = () => {
 
       if (response.data.success) {
         toast.success(response.data.message)
-        console.log('Google login successful:', response.data)
+        // console.log('Google login successful:', response.data)
         
         // Dispatch success action to update Redux state
         dispatch(signInSuccess(response.data))
