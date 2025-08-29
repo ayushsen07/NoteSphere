@@ -10,6 +10,8 @@ import {
 } from "../redux/user/userSlice"
 import axios from "axios"
 
+import { BASE_URL } from "../const/env.const"
+
 const GoogleLoginButton = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
@@ -26,7 +28,7 @@ const GoogleLoginButton = () => {
 
       // Send to backend
       const response = await axios.post(
-        "http://localhost:3000/api/auth/google",
+        `${BASE_URL}/api/auth/google`,
         {
           googleId,
           email,
