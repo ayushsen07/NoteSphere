@@ -34,12 +34,12 @@ export const signup = async (req, res, next) => {
 
 export const signin = async (req, res, next) => {
   const { email, password } = req.body
-  console.log(email , password)
+  console.log(email, password)
 
   try {
     const validUser = await User.findOne({ email })
     // console.log(validUser);
-    
+
 
     if (!validUser) {
       return next(errorHandler(404, "User not found"))
@@ -47,7 +47,7 @@ export const signin = async (req, res, next) => {
 
     const validPassword = bcryptjs.compareSync(password, validUser.password)
     // console.log(validPassword);
-    
+
 
     if (!validPassword) {
       return next(errorHandler(401, "Wrong Credentials"))
@@ -55,11 +55,14 @@ export const signin = async (req, res, next) => {
 
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET)
     // console.log(token);
-    
+
 
     const { password: pass, ...rest } = validUser._doc
 
-    res.cookie("access_token", token, { httpOnly: true }).status(200).json({
+    res.cookie("access_token", token, {
+      httpOnly: true, secure: true,
+      sameSite: "None",
+    }).status(200).json({
       success: true,
       message: "Login Successful!",
       rest,
@@ -71,7 +74,10 @@ export const signin = async (req, res, next) => {
 
 export const signout = async (req, res, next) => {
   try {
-    res.clearCookie("access_token")
+    res.clearCookie("access_token", {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none"})
 
     res.status(200).json({
       success: true,
