@@ -46,7 +46,7 @@ const GoogleLoginButton = () => {
         dispatch(signInSuccess(response.data))
         
         // Navigate to home page
-        navigate("/")
+        navigate("/home")
       } else {
         // Handle unsuccessful response
         toast.error(response.data.message || "Google login failed")

@@ -58,7 +58,7 @@ const Login = () => {
       
       toast.success(`Ooh yes.. you loged in ${res.data.rest.username}!`)
       dispatch(signInSuccess(res.data))
-      navigate("/")
+      navigate("/home")
     } catch (error) {
       toast.error(error.message)
       console.log(error);
